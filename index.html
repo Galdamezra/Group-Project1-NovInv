@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head >
+    <meta charset="utf-8">
+    <title>Group Project!</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script><script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" type="text/css" href="assets/assets.css">
+    <link href="https://fonts.googleapis.com/css?family=Questrial" rel="stylesheet">
+  </head>
+  <body>
+    <div class="jumbotron">
+
+      <h1 style="text-align: center; font-family: 'Questrial', sans-serif;"></a>YOUR DAILY DASHBOARD</h1>
+    </div>
+
+
+
+
+
+    <div class="container">
+      <div class="row">
+
+
+
+        <div class="col-sm-4">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title"  style=" text-align: center; font-family: 'Questrial', sans-serif;">Your Top Stories for the Day</h3>
+              <label for="add-news">Your Topic</label>
+              <input type="text" id="news-input">
+              <input id="add-news" type="submit" value="Submit" >
+            </div>
+                  <div id="News">
+
+
+
+
+                  </div>
+
+
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title"  style=" text-align: center; font-family: 'Questrial', sans-serif;">Your Weather for the Day</h3>
+
+
+      <form id="add-weathers">
+            <label for="state-input">Your State Here</label>
+            <input type="text" id="state-input">
+            <label for="city-input">Your City Here</label>
+            <input type="text" id="city-input">
+            <input id="add-weathers" type="submit" value="Submit">
+      </form>
+
+                </div>
+                      <div id="weatherInfo">
+
+
+
+
+                      </div>
+
+
+                    </div>
+                </div>
+            <div class="col-sm-4">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title" style="text-align: center; font-family: 'Questrial', sans-serif;">Your Daily Stocks</h3>
+
+                  <form id="add-stocks">
+                    <label for="stock-input">Your Stock</label>
+                      <input type="text" id="stock-input">
+                        <input id="add-stock" type="submit" value="Submit">
+                  </form>
+                    <div id="stockInfo">
+
+                      </div>
+                    </div>
+                  </div>
+
+
+             </div>
+           </div>
+
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="assets/javascript/app.js"></script>
+    </body>
+    </html>
