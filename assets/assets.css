@@ -16,6 +16,11 @@ h1 {
   font-family: 'Questrial', sans-serif;
 }
 
+#stockInfo {
+  text-align: center;
+  font-family: 'Questrial', sans-serif;
+}
+
 #add-weathers {
   -webkit-animation: animation 2000ms linear both;
   animation: animation 2000ms linear both;

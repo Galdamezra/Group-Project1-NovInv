@@ -112,71 +112,95 @@ $(document).ready(function() {
 
 
 
-var config = {
-        apiKey: "AIzaSyCvKr8XCnaCGcSrSDC5Fy7AyALsa8CToEk",
-        authDomain: "projectone-b4271.firebaseapp.com",
-        databaseURL: "https://projectone-b4271.firebaseio.com",
-        projectId: "projectone-b4271",
-        storageBucket: "projectone-b4271.appspot.com",
-        messagingSenderId: "469463387856"
-      };
-      firebase.initializeApp(config);
-      var database = firebase.database();
-      var interval = setInterval(arrow, 1000 * 100);
-      var lastPrice = 0
-      var stock = ""
-      $("#add-stock").on("click", function(event) {
-        event.preventDefault()
-        console.log("calling")
-        stock = $("#stock-input").val().trim().toUpperCase()
-        var symbols = $("#stock-input").val().trim().toUpperCase()
-        var queryURL = "https://crossorigin.me/http://marketdata.websol.barchart.com/getQuote.json?key=3a7c2bc136b9027743e077f17c788f0c&symbols=" + symbols;
-        $.ajax({
-          url: queryURL,
-          method: "GET"
-        }).done(function(response) {
-          console.log(response);
-          $("#stockInfo").html(response.results[0].lastPrice);
-          console.log("hi");
-          var last = $("<div>").html("Last Price|" + response.results[0].lastPrice);
-          var open = $("<div>").html("Opening Price|" + response.results[0].open);
-          var close = $("<div>").html("Closing Price|" + response.results[0].close);
-          $("#stockInfo").append(open);
-          console.log(stock)
-        });
-      });
-      function arrow(){
-        console.log("arrow pt 1")
-        var queryURL = "https://crossorigin.me/http://marketdata.websol.barchart.com/getQuote.json?key=3a7c2bc136b9027743e077f17c788f0c&symbols=" + stock;
+ var interval = setInterval(arrow, 1000 * 10);
+    var basePrice = 0
+    var stock = ""
+
+    $("#add-stocks").on("click", function(event) {
+      event.preventDefault()
+      console.log("calling")
+      stock = $("#stock-input").val().trim().toUpperCase()
+      var symbols = $("#stock-input").val().trim().toUpperCase()
+      var queryURL = "https://crossorigin.me/http://marketdata.websol.barchart.com/getQuote.json?key=3a7c2bc136b9027743e077f17c788f0c&symbols=" + symbols;
+
+
       $.ajax({
-          url: queryURL,
-          method: "GET"
-        }).done(function(response) {
-          console.log("arrow pt 2")
-          var currentPrice = response.results[0].lastPrice;
-          var basePrice = {
-            basePrice: currentPrice
-          };
-          database.ref().push(basePrice);
-          console.log(basePrice.basePrice)
-          console.log(currentPrice)
-          if (basePrice > currentPrice) {
-            console.log("down")
-          }
-          else if (basePrice < currentPrice) {
-            console.log("up")
-          }
-          else if (basePrice === currentPrice) {
-            console.log("even")
-          }
-          else {
-            console.log("error")
-          }
-          console.log("arrow pt 3")
-          return;
+        url: queryURL,
+        method: "GET"
+      }).done(function(response) {
+        console.log(response);
+
+        var name = response.results[0].name;
+        var symbol = response.results[0].symbol;
+        var exchange = response.results[0].exchange;
+        var last = response.results[0].lastPrice;
+        // basePrice = response.results[0].lastPrice;
+        basePrice = 20
+        var open = response.results[0].open;
+        var close = response.results[0].close;
+        var netChange = response.results[0].netChange;
+        var percentChange = response.results[0].percentChange;
+        var volume = response.results[0].volume;
+
+        var stock_title_div = $("<div>").addClass("stock-title");
+        var stock_title = $(stock_title_div).html("Company: " + name + " (" + symbol + ") ");
+
+
+        var stock_data_div = $("<div>").addClass("stock-data");
+        var stock_data = $(stock_data_div).html("Exchange: " + " (" + exchange + ") " + "<br/>"
+          + "Current Price: $" + last + "  |  Volume: $" + volume + "<br/>"
+          + "Open: $" + open + "  |   Close: $" + close + "<br/>"
+          + "Change($): $" + netChange + "  |   Change(%): " + percentChange + "%")
+
+
+        $("#stockInfo").append(stock_title);
+        $("#stockInfo").append(stock_data);
+
+        console.log(stock)
+
+      });
+    });
+
+    var value = 1
+
+    function arrow(){
+      console.log("arrow pt 1")
+      var queryURL = "https://crossorigin.me/http://marketdata.websol.barchart.com/getQuote.json?key=3a7c2bc136b9027743e077f17c788f0c&symbols=" + stock;
+
+      if (value === 1){
+
+              $.ajax({
+              url: queryURL,
+              method: "GET"
+              }).done(function(response) {
+                console.log("arrow pt 3")
+                // var currentPrice = response.results[0].lastPrice;
+                var currentPrice = 15
+                console.log("current price: " + currentPrice)
+
+            if (basePrice > currentPrice) {
+              var down = 100 - ((currentPrice / basePrice) * 100)
+              console.log("down: " + down + "%")
+            }
+            else if (basePrice < currentPrice) {
+              var up = 100 - ((basePrice / currentPrice) * 100)
+              console.log("up: " + up + "%")
+            }
+            else if (basePrice === currentPrice) {
+              console.log("even")
+            }
+            else {
+              console.log("error")
+            };
+            console.log("arrow pt 4")
+            value = 0
+            return;
         });
       }
-
+      else {
+        //alert("You're .")
+      };
+    };
 
       $("#add-weathers").on("click", function(event) {
          event.preventDefault()
